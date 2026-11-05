@@ -3,27 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ইউজার ড্যাশবোর্ড - আর্নিং প্ল্যাটফর্ম</title>
+    <title>ইউজার ড্যাশবোর্ড - রিয়েল আর্নিং প্ল্যাটফর্ম</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f1f5f9; color: #1e293b; padding-bottom: 40px; }
-        .header { background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; padding: 20px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3); }
+        .header { background: linear-gradient(135deg, #0284c7, #2563eb); color: white; padding: 20px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
         .user-info { display: flex; justify-content: space-between; align-items: center; }
         .user-info h3 { font-size: 18px; margin-bottom: 3px; }
         .user-info p { font-size: 12px; opacity: 0.85; }
         .logout-btn { background: rgba(255, 255, 255, 0.2); border: none; color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+        
         .balance-card { background: white; margin: -20px 20px 20px 20px; padding: 20px; border-radius: 16px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06); text-align: center; border: 1px solid #e2e8f0; }
         .balance-card h4 { color: #64748b; font-size: 13px; margin-bottom: 6px; }
-        .balance-card h1 { font-size: 30px; color: #10b981; margin-bottom: 15px; }
-        .btn-group { display: flex; gap: 10px; justify-content: center; }
-        .action-btn { background: #4f46e5; color: white; border: none; padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2); }
-        .withdraw-btn { background: #0ea5e9; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.2); }
+        .balance-card h1 { font-size: 32px; color: #10b981; margin-bottom: 15px; }
+        .withdraw-btn { background: #0284c7; color: white; border: none; padding: 10px 24px; border-radius: 20px; font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3); }
+
         .container { padding: 0 20px; }
-        .section-title { font-size: 15px; font-weight: bold; margin-bottom: 12px; color: #334155; }
-        .game-section { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; border: 1px solid #e2e8f0; }
-        .game-section p { font-size: 13px; color: #64748b; margin-bottom: 12px; }
-        .play-game-btn { background: #f59e0b; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 14px; }
-        .game-result { margin-top: 10px; font-size: 14px; font-weight: bold; min-height: 20px; }
+        .section-title { font-size: 15px; font-weight: bold; margin-bottom: 12px; color: #334155; margin-top: 20px; }
+
+        /* কাজ করার কার্ড ডিজাইন */
+        .task-card { background: white; padding: 16px; border-radius: 14px; margin-bottom: 12px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04); border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .task-info h5 { font-size: 14px; color: #1e293b; margin-bottom: 4px; }
+        .task-info p { font-size: 12px; color: #64748b; }
+        .task-btn { background: #10b981; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; }
+
+        /* লেখালেখির সেকশন */
+        .writing-section { background: white; padding: 16px; border-radius: 14px; border: 1px solid #e2e8f0; margin-bottom: 20px; }
+        .writing-section textarea { width: 100%; height: 90px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; resize: none; margin-bottom: 10px; }
+        .submit-writing-btn { background: #6366f1; color: white; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -39,41 +46,52 @@
     </div>
 
     <div class="balance-card">
-        <h4>আপনার বর্তমান ব্যালেন্স (সর্বোচ্চ লিমিট ৳১০০০)</h4>
+        <h4>আপনার মূল আয় (রিয়েল ব্যালেন্স)</h4>
         <h1 id="userBalance">৳ ০.০০</h1>
-        <div class="btn-group">
-            <button class="action-btn withdraw-btn" onclick="requestWithdraw()">টাকা তুলুন</button>
-        </div>
+        <button class="withdraw-btn" onclick="requestWithdraw()">টাকা তুলুন (Withdraw)</button>
     </div>
 
     <div class="container">
-        <div class="section-title">ভাগ্য পরীক্ষা গেম (Win & Lose)</div>
-        <div class="game-section">
-            <p>প্রতিবার গেম ফি ৫ টাকা। ভাগ্য ভালো থাকলে ১০ টাকা জিতবেন!</p>
-            <button class="play-game-btn" onclick="playGame()">গেম খেলুন (-৫ টাকা)</button>
-            <div class="game-result" id="gameResult"></div>
+        <!-- লেখালেখির কাজ করে আয় -->
+        <div class="section-title">✍️ লেখালেখির কাজ (প্রতি ৫ মিনিটে ১-২ টাকা আয়)</div>
+        <div class="writing-section">
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 8px;">কমপক্ষে ৫ লাইন কোনো গল্প, আর্টিকেল বা কবিতা লিখুন এবং জমা দিন:</p>
+            <textarea id="articleInput" placeholder="আপনার লেখা এখানে লিখুন..."></textarea>
+            <button class="submit-writing-btn" onclick="submitWriting()">লেখা জমা দিন (+৳২.০০ অর্জন করুন)</button>
+        </div>
+
+        <!-- মাইক্রো টাস্ক বা অন্যান্য কাজ -->
+        <div class="section-title">📋 ছোট কাজ ও মাইক্রো টাস্ক</div>
+        
+        <div class="task-card">
+            <div class="task-info">
+                <h5>সোশ্যাল মিডিয়া ভিজিট</h5>
+                <p>সাইট ভিজিট করলেই পাবেন ৳১.৫০</p>
+            </div>
+            <button class="task-btn" onclick="completeTask(1.50, this)">কাজ করুন</button>
+        </div>
+
+        <div class="task-card">
+            <div class="task-info">
+                <h5>বিজ্ঞাপন দেখা (Ad Watch)</h5>
+                <p>বিজ্ঞাপন দেখে আয় করুন ৳১.০০</p>
+            </div>
+            <button class="task-btn" onclick="completeTask(1.00, this)">কাজ করুন</button>
         </div>
     </div>
 
     <script>
-        // লগইন করা ইউজারকে ভ্যালিডেট করা
         const loggedInPhone = localStorage.getItem('logged_in_user');
-        if (!loggedInPhone) {
-            window.location.href = 'index.html';
-        }
+        if (!loggedInPhone) { window.location.href = 'index.html'; }
 
         let users = JSON.parse(localStorage.getItem('site_users')) || [];
         let currentUser = users.find(u => u.phone === loggedInPhone);
+        if (!currentUser) { window.location.href = 'index.html'; }
 
-        if (!currentUser) {
-            window.location.href = 'index.html';
-        }
-
-        // নাম ও আইডি সেট করা
         document.getElementById('userName').innerText = `হ্যালো, ${currentUser.name}! 👋`;
         document.getElementById('userId').innerText = `আইডি: ${currentUser.id}`;
 
-        let balance = currentUser.balance;
+        let balance = currentUser.balance || 0;
         const MAX_LIMIT = 1000.00;
 
         function updateDisplay() {
@@ -81,38 +99,40 @@
             currentUser.balance = balance;
             localStorage.setItem('site_users', JSON.stringify(users));
         }
-
         updateDisplay();
 
-        function playGame() {
-            const entryFee = 5;
-            const reward = 10;
-            const resultBox = document.getElementById('gameResult');
-
-            if (balance < entryFee) {
-                alert('আপনার অ্যাকাউন্টে পর্যাপ্ত টাকা নেই! গেম খেলতে কমপক্ষে ৫ টাকা থাকতে হবে।');
+        // লেখালেখি করে আয় করার সিস্টেম
+        function submitWriting() {
+            let text = document.getElementById('articleInput').value.trim();
+            if (text.length < 20) {
+                alert('⚠️ লেখাটি খুব ছোট! কমপক্ষে ৫-১০ লাইন বা বিস্তারিত কিছু লিখুন।');
                 return;
             }
 
-            balance -= entryFee;
-            let isWin = Math.random() < 0.5;
-
-            if (isWin) {
-                if (balance + reward > MAX_LIMIT) {
-                    balance = MAX_LIMIT;
-                    resultBox.style.color = '#10b981';
-                    resultBox.innerHTML = `🎉 জিতেছেন! তবে সর্বোচ্চ ১,০০০ টাকার লিমিট পূর্ণ হয়েছে।`;
-                } else {
-                    balance += reward;
-                    resultBox.style.color = '#10b981';
-                    resultBox.innerHTML = `🎉 অভিনন্দন! আপনি ৳${reward} জিতেছেন!`;
-                }
-            } else {
-                resultBox.style.color = '#ef4444';
-                resultBox.innerHTML = `❌ উফ! এই দফায় ৫ টাকা হেরে গেছেন। আবার চেষ্টা করুন!`;
+            let reward = 2.00; // ২ টাকা আয়
+            if (balance + reward > MAX_LIMIT) {
+                alert('⚠️ সর্বোচ্চ ১০০০ টাকা লিমিট পূর্ণ হয়েছে!');
+                return;
             }
 
+            balance += reward;
             updateDisplay();
+            document.getElementById('articleInput').value = '';
+            alert('🎉 অভিনন্দন! আপনার লেখা সফলভাবে জমা হয়েছে এবং অ্যাকাউন্টে ৳২.০০ যোগ করা হয়েছে।');
+        }
+
+        // সাধারণ টাস্ক কমপ্লিট করার সিস্টেম
+        function completeTask(amount, btn) {
+            if (balance + amount > MAX_LIMIT) {
+                alert('⚠️ সর্বোচ্চ ১০০০ টাকা লিমিট পূর্ণ হয়েছে!');
+                return;
+            }
+            balance += amount;
+            updateDisplay();
+            btn.innerText = 'সম্পন্ন ✓';
+            btn.style.background = '#64748b';
+            btn.disabled = true;
+            alert(`সফলভাবে কাজটি সম্পন্ন হয়েছে! আপনার অ্যাকাউন্টে ৳${amount.toFixed(2)} যোগ করা হয়েছে।`);
         }
 
         function requestWithdraw() {
