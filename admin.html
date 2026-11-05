@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অ্যাডমিন প্যানেল - সাইট কন্ট্রোল</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #334155;
+        }
+        .header h2 {
+            color: #38bdf8;
+        }
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .card h3 {
+            color: #f1f5f9;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: white;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-success { background: #10b981; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-warning { background: #f59e0b; color: white; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+        th { color: #38bdf8; }
+        .badge-pending { color: #f59e0b; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>👑 অ্যাডমিন কন্ট্রোল প্যানেল</h2>
+        <p style="font-size: 12px; color: #94a3b8;">সাইটের সম্পূর্ণ ব্যালেন্স ও রিকোয়েস্ট কন্ট্রোল করুন</p>
+    </div>
+
+    <!-- ইউজার ব্যালেন্স কন্ট্রোল সেকশন -->
+    <div class="card">
+        <h3>⚙️ ইউজার ব্যালেন্স ম্যানুয়ালি যুক্ত/কর্তন</h3>
+        <div class="form-group">
+            <label>ইউজার আইডি বা মোবাইল নম্বর</label>
+            <input type="text" id="targetUser" placeholder="যেমন: #SQ8920">
+        </div>
+        <div class="form-group">
+            <label>টাকার পরিমাণ (সর্বোচ্চ লিমিট ৳১০০০)</label>
+            <input type="number" id="amountInput" placeholder="টাকার পরিমাণ লিখুন">
+        </div>
+        <button class="btn btn-success" onclick="modifyBalance('add')">টাকা যোগ করুন</button>
+        <button class="btn btn-danger" onclick="modifyBalance('deduct')">টাকা কেটে নিজের অ্যাকাউন্টে আনুন</button>
+    </div>
+
+    <!-- রিকোয়েস্ট টেবিল -->
+    <div class="card">
+        <h3>📥 সাম্প্রতিক রিচার্জ ও উইথড্র রিকোয়েস্ট</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ইউজার</th>
+                    <th>টাইপ</th>
+                    <th>পরিমাণ</th>
+                    <th>অ্যাকশন</th>
+                </tr>
+            </thead>
+            <tbody id="requestTable">
+                <tr>
+                    <td>017XXXXXXX</td>
+                    <td>ডিপোজিট (নগদ)</td>
+                    <td>৳২০০</td>
+                    <td>
+                        <button style="padding: 4px 8px; background:#10b981; color:white; border:none; border-radius:4px; cursor:pointer;" onclick="approveRequest(this, 200)">Approve</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>018XXXXXXX</td>
+                    <td>উইথড্র (বিকাশ)</td>
+                    <td>৳৫০০</td>
+                    <td>
+                        <button style="padding: 4px 8px; background:#ef4444; color:white; border:none; border-radius:4px; cursor:pointer;" onclick="approveWithdraw(this)">Pay & Approve</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const MAX_LIMIT = 1000; // ১,০০০ টাকার ক্যাপিং লিমিট
+
+        function modifyBalance(action) {
+            const user = document.getElementById('targetUser').value;
+            const amount = parseFloat(document.getElementById('amountInput').value);
+
+            if (!user || isNaN(amount)) {
+                alert('দয়া করে সঠিক ইউজার আইডি এবং টাকার পরিমাণ দিন!');
+                return;
+            }
+
+            if (action === 'add') {
+                if (amount > MAX_LIMIT) {
+                    alert('⚠️ সিস্টেম অ্যালার্ট: যেকোনো ইউজারের সর্বোচ্চ লিমিট ১,০০০ টাকা! এর বেশি যোগ করা যাবে না।');
+                    return;
+                }
+                alert(`সফল হয়েছে! ${user} ইউজারের অ্যাকাউন্টে ৳${amount} যোগ করা হয়েছে।`);
+            } else if (action === 'deduct') {
+                alert(`সফল হয়েছে! ${user} ইউজারের অ্যাকাউন্ট থেকে ৳${amount} কেটে নিয়ে আপনার মূল অ্যাডমিন অ্যাকাউন্টে আনা হয়েছে।`);
+            }
+        }
+
+        function approveRequest(btn, amt) {
+            if (amt > MAX_LIMIT) {
+                alert('⚠️ ১,০০০ টাকার বেশি ব্যালেন্স লিমিট অতিক্রম করবে!');
+                return;
+            }
+            alert('ডিপোজিট রিকোয়েস্ট Approved! ইউজারের ব্যালেন্সে টাকা যোগ হয়েছে।');
+            btn.parentElement.innerHTML = '<span style="color:#10b981;">✓ সম্পন্ন</span>';
+        }
+
+        function approveWithdraw(btn) {
+            alert('উইথড্র রিকোয়েস্ট Approved! ইউজারের ব্যালেন্স থেকে টাকা কেটে নেওয়া হয়েছে।');
+            btn.parentElement.innerHTML = '<span style="color:#10b981;">✓ পেইড</span>';
+        }
+    </script>
+
+</body>
+</html>
