@@ -3,134 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>টাস্ক ও আর্নিং প্ল্যাটফর্ম - লগইন</title>
+    <title>লগইন ও রেজিস্ট্রেশন - আর্নিং প্ল্যাটফর্ম</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-            font-size: 14px;
-        }
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        input:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .switch-text {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            color: #666;
-        }
-        .switch-text a {
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; display: flex; justify-content: center; align-items: center; height: 100vh; padding: 20px; }
+        .auth-container { background: #1e293b; padding: 30px; border-radius: 16px; width: 100%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        h2 { text-align: center; margin-bottom: 20px; color: #38bdf8; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 5px; }
+        input { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 8px; font-size: 14px; }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 15px; }
+        .btn-primary { background: #4f46e5; color: white; }
+        .switch-text { text-align: center; margin-top: 15px; font-size: 13px; color: #94a3b8; cursor: pointer; }
+        .switch-text span { color: #38bdf8; font-weight: bold; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="container" id="loginBox">
-        <h2>লগইন করুন</h2>
-        <div class="form-group">
-            <label>আপনার মোবাইল নম্বর বা ইমেইল</label>
-            <input type="text" placeholder="নম্বর বা ইমেইল দিন">
+    <div class="auth-container">
+        <!-- লগইন ফর্ম -->
+        <div id="loginSection">
+            <h2>লগইন করুন</h2>
+            <div class="form-group">
+                <label>মোবাইল নম্বর</label>
+                <input type="text" id="loginPhone" placeholder="আপনার মোবাইল নম্বর দিন">
+            </div>
+            <div class="form-group">
+                <label>পাসওয়ার্ড</label>
+                <input type="password" id="loginPassword" placeholder="পাসওয়ার্ড দিন">
+            </div>
+            <button class="btn btn-primary" onclick="loginUser()">লগইন</button>
+            <div class="switch-text" onclick="toggleForm()">অ্যাকাউন্ট নেই? <span>রেজিস্ট্রেশন করুন</span></div>
         </div>
-        <div class="form-group">
-            <label>পাসওয়ার্ড</label>
-            <input type="password" placeholder="পাসওয়ার্ড দিন">
-        </div>
-        <button onclick="alert('লগইন সফল হয়েছে!')">লগইন</button>
-        <div class="switch-text">
-            অ্যাকাউন্ট নেই? <a href="#" onclick="toggleForm()">রেজিস্ট্রেশন করুন</a>
-        </div>
-    </div>
 
-    <div class="container" id="registerBox" style="display: none;">
-        <h2>নতুন অ্যাকাউন্ট তৈরি</h2>
-        <div class="form-group">
-            <label>আপনার নাম</label>
-            <input type="text" placeholder="সম্পূর্ণ নাম লিখুন">
-        </div>
-        <div class="form-group">
-            <label>মোবাইল নম্বর</label>
-            <input type="text" placeholder="বিকাশ/নগদ নম্বর দিন">
-        </div>
-        <div class="form-group">
-            <label>পাসওয়ার্ড দিন</label>
-            <input type="password" placeholder="একটি শক্তিশালী পাসওয়ার্ড দিন">
-        </div>
-        <button onclick="alert('রেজিস্ট্রেশন সফল হয়েছে!')">অ্যাকাউন্ট খুলুন</button>
-        <div class="switch-text">
-            ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="#" onclick="toggleForm()">লগইন করুন</a>
+        <!-- রেজিস্ট্রেশন ফর্ম -->
+        <div id="registerSection" class="hidden">
+            <h2>রেজিস্ট্রেশন করুন</h2>
+            <div class="form-group">
+                <label>আপনার নাম</label>
+                <input type="text" id="regName" placeholder="পূর্ণ নাম লিখুন">
+            </div>
+            <div class="form-group">
+                <label>মোবাইল নম্বর</label>
+                <input type="text" id="regPhone" placeholder="মোবাইল নম্বর দিন">
+            </div>
+            <div class="form-group">
+                <label>পাসওয়ার্ড</label>
+                <input type="password" id="regPassword" placeholder="একটি শক্ত পাসওয়ার্ড দিন">
+            </div>
+            <button class="btn btn-primary" onclick="registerUser()">রেজিস্ট্রেশন সম্পন্ন করুন</button>
+            <div class="switch-text" onclick="toggleForm()">ইতিমধ্যে অ্যাকাউন্ট আছে? <span>লগইন করুন</span></div>
         </div>
     </div>
 
     <script>
         function toggleForm() {
-            const loginBox = document.getElementById('loginBox');
-            const registerBox = document.getElementById('registerBox');
-            if (loginBox.style.display === 'none') {
-                loginBox.style.display = 'block';
-                registerBox.style.display = 'none';
+            document.getElementById('loginSection').classList.toggle('hidden');
+            document.getElementById('registerSection').classList.toggle('hidden');
+        }
+
+        function registerUser() {
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+
+            if (!name || !phone || !password) {
+                alert('দয়া করে সব ঘরগুলো পূরণ করুন!');
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('site_users')) || [];
+            
+            // চেক করা নম্বরAlready আছে কিনা
+            if (users.some(u => u.phone === phone)) {
+                alert('এই নম্বর দিয়ে ইতিপূর্বে অ্যাকাউন্ট খোলা হয়েছে!');
+                return;
+            }
+
+            // নতুন ইউজারের ব্যালেন্স একদম শূন্য (0) দিয়ে অ্যাকাউন্ট তৈরি
+            const newUser = {
+                name: name,
+                phone: phone,
+                password: password,
+                balance: 0.00,
+                id: '#SQ' + Math.floor(1000 + Math.random() * 9000)
+            };
+
+            users.push(newUser);
+            localStorage.setItem('site_users', JSON.stringify(users));
+            alert('রেজিস্ট্রেশন সফল হয়েছে! এখন লগইন করুন।');
+            toggleForm();
+        }
+
+        function loginUser() {
+            const phone = document.getElementById('loginPhone').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            let users = JSON.parse(localStorage.getItem('site_users')) || [];
+            let validUser = users.find(u => u.phone === phone && u.password === password);
+
+            if (validUser) {
+                localStorage.setItem('logged_in_user', phone);
+                window.location.href = 'dashboard.html';
             } else {
-                loginBox.style.display = 'none';
-                registerBox.style.display = 'block';
+                alert('ভুল মোবাইল নম্বর বা পাসওয়ার্ড! দয়া করে সঠিক তথ্য দিন।');
             }
         }
     </script>
-
 </body>
 </html>
