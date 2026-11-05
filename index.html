@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>টাস্ক ও আর্নিং প্ল্যাটফর্ম - লগইন</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .switch-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        .switch-text a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="loginBox">
+        <h2>লগইন করুন</h2>
+        <div class="form-group">
+            <label>আপনার মোবাইল নম্বর বা ইমেইল</label>
+            <input type="text" placeholder="নম্বর বা ইমেইল দিন">
+        </div>
+        <div class="form-group">
+            <label>পাসওয়ার্ড</label>
+            <input type="password" placeholder="পাসওয়ার্ড দিন">
+        </div>
+        <button onclick="alert('লগইন সফল হয়েছে!')">লগইন</button>
+        <div class="switch-text">
+            অ্যাকাউন্ট নেই? <a href="#" onclick="toggleForm()">রেজিস্ট্রেশন করুন</a>
+        </div>
+    </div>
+
+    <div class="container" id="registerBox" style="display: none;">
+        <h2>নতুন অ্যাকাউন্ট তৈরি</h2>
+        <div class="form-group">
+            <label>আপনার নাম</label>
+            <input type="text" placeholder="সম্পূর্ণ নাম লিখুন">
+        </div>
+        <div class="form-group">
+            <label>মোবাইল নম্বর</label>
+            <input type="text" placeholder="বিকাশ/নগদ নম্বর দিন">
+        </div>
+        <div class="form-group">
+            <label>পাসওয়ার্ড দিন</label>
+            <input type="password" placeholder="একটি শক্তিশালী পাসওয়ার্ড দিন">
+        </div>
+        <button onclick="alert('রেজিস্ট্রেশন সফল হয়েছে!')">অ্যাকাউন্ট খুলুন</button>
+        <div class="switch-text">
+            ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="#" onclick="toggleForm()">লগইন করুন</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const loginBox = document.getElementById('loginBox');
+            const registerBox = document.getElementById('registerBox');
+            if (loginBox.style.display === 'none') {
+                loginBox.style.display = 'block';
+                registerBox.style.display = 'none';
+            } else {
+                loginBox.style.display = 'none';
+                registerBox.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
