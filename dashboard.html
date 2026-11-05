@@ -5,253 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ইউজার ড্যাশবোর্ড - আর্নিং প্ল্যাটফর্ম</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #f1f5f9;
-            color: #1e293b;
-            padding-bottom: 40px;
-        }
-        /* টপ হেডার */
-        .header {
-            background: linear-gradient(135deg, #4f46e5, #6366f1);
-            color: white;
-            padding: 20px;
-            border-bottom-left-radius: 25px;
-            border-bottom-right-radius: 25px;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-        }
-        .user-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .user-info h3 {
-            font-size: 18px;
-            margin-bottom: 3px;
-        }
-        .user-info p {
-            font-size: 12px;
-            opacity: 0.85;
-        }
-        .logout-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        /* ব্যালেন্স কার্ড (সর্বোচ্চ ১০০০ টাকা লিমি트 সহ) */
-        .balance-card {
-            background: white;
-            margin: -20px 20px 20px 20px;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-            text-align: center;
-            border: 1px solid #e2e8f0;
-        }
-        .balance-card h4 {
-            color: #64748b;
-            font-size: 13px;
-            margin-bottom: 6px;
-        }
-        .balance-card h1 {
-            font-size: 30px;
-            color: #10b981;
-            margin-bottom: 15px;
-        }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .action-btn {
-            background: #4f46e5;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
-        }
-        .withdraw-btn {
-            background: #0ea5e9;
-            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.2);
-        }
-
-        /* কন্টেন্ট সেকশন */
-        .container {
-            padding: 0 20px;
-        }
-        .section-title {
-            font-size: 15px;
-            font-weight: bold;
-            margin-bottom: 12px;
-            color: #334155;
-        }
-
-        /* গেম সেকশন বক্স */
-        .game-section {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-        }
-        .game-section p {
-            font-size: 13px;
-            color: #64748b;
-            margin-bottom: 12px;
-        }
-        .play-game-btn {
-            background: #f59e0b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .game-result {
-            margin-top: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            min-height: 20px;
-        }
-
-        /* কাজের গ্রিড */
-        .task-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .task-card {
-            background: white;
-            padding: 15px;
-            border-radius: 14px;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
-            cursor: pointer;
-            border: 1px solid #e2e8f0;
-            transition: 0.2s;
-        }
-        .task-card:active {
-            transform: scale(0.96);
-        }
-        .task-card .icon {
-            font-size: 26px;
-            margin-bottom: 6px;
-        }
-        .task-card h5 {
-            font-size: 13px;
-            color: #1e293b;
-            margin-bottom: 3px;
-        }
-        .task-card p {
-            font-size: 11px;
-            color: #64748b;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f1f5f9; color: #1e293b; padding-bottom: 40px; }
+        .header { background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; padding: 20px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3); }
+        .user-info { display: flex; justify-content: space-between; align-items: center; }
+        .user-info h3 { font-size: 18px; margin-bottom: 3px; }
+        .user-info p { font-size: 12px; opacity: 0.85; }
+        .logout-btn { background: rgba(255, 255, 255, 0.2); border: none; color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+        .balance-card { background: white; margin: -20px 20px 20px 20px; padding: 20px; border-radius: 16px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06); text-align: center; border: 1px solid #e2e8f0; }
+        .balance-card h4 { color: #64748b; font-size: 13px; margin-bottom: 6px; }
+        .balance-card h1 { font-size: 30px; color: #10b981; margin-bottom: 15px; }
+        .btn-group { display: flex; gap: 10px; justify-content: center; }
+        .action-btn { background: #4f46e5; color: white; border: none; padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2); }
+        .withdraw-btn { background: #0ea5e9; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.2); }
+        .container { padding: 0 20px; }
+        .section-title { font-size: 15px; font-weight: bold; margin-bottom: 12px; color: #334155; }
+        .game-section { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; border: 1px solid #e2e8f0; }
+        .game-section p { font-size: 13px; color: #64748b; margin-bottom: 12px; }
+        .play-game-btn { background: #f59e0b; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 14px; }
+        .game-result { margin-top: 10px; font-size: 14px; font-weight: bold; min-height: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- হেডার -->
     <div class="header">
         <div class="user-info">
             <div>
-                <h3>হ্যালো, সাকিবুল! 👋</h3>
-                <p>আইডি: #SQ8920</p>
+                <h3 id="userName">হ্যালো! 👋</h3>
+                <p id="userId">আইডি: #---</p>
             </div>
-            <button class="logout-btn" onclick="alert('লগআউট সফল হয়েছে!')">লগআউট</button>
+            <button class="logout-btn" onclick="logoutUser()">লগআউট</button>
         </div>
     </div>
 
-    <!-- ব্যালেন্স ও ওয়ালেট কার্ড -->
     <div class="balance-card">
         <h4>আপনার বর্তমান ব্যালেন্স (সর্বোচ্চ লিমিট ৳১০০০)</h4>
-        <h1 id="userBalance">৳ ১২০.৫০</h1>
+        <h1 id="userBalance">৳ ০.০০</h1>
         <div class="btn-group">
-            <button class="action-btn" onclick="depositMoney()">টাকা ভরুন (+)</button>
             <button class="action-btn withdraw-btn" onclick="requestWithdraw()">টাকা তুলুন</button>
         </div>
     </div>
 
     <div class="container">
-        <!-- গেম খেলার সেকশন (জিতলে বা হারলে ব্যালেন্স আপডেট হবে, ১০০০ টাকার বেশি যাবে না) -->
         <div class="section-title">ভাগ্য পরীক্ষা গেম (Win & Lose)</div>
         <div class="game-section">
             <p>প্রতিবার গেম ফি ৫ টাকা। ভাগ্য ভালো থাকলে ১০ টাকা জিতবেন!</p>
             <button class="play-game-btn" onclick="playGame()">গেম খেলুন (-৫ টাকা)</button>
             <div class="game-result" id="gameResult"></div>
         </div>
-
-        <!-- অন্যান্য কাজের ক্যাটাগরি -->
-        <div class="section-title">আয় করার অন্যান্য মাধ্যম</div>
-        <div class="task-grid">
-            <div class="task-card" onclick="alert('লেখালেখির সাবমিশন ফর্ম খুব শীঘ্রই আসছে!')">
-                <div class="icon">✍️</div>
-                <h5>লেখালেখির কাজ</h5>
-                <p>গল্প বা আর্টিকেল জমা দিন</p>
-            </div>
-            <div class="task-card" onclick="alert('মাইক্রো টাস্ক লোড হচ্ছে...')">
-                <div class="icon">📋</div>
-                <h5>ছোট কাজ (Micro Task)</h5>
-                <p>ভিডিও বা সাইট ভিজিট</p>
-            </div>
-            <div class="task-card" onclick="alert('বিজ্ঞাপন দেখার টাস্ক...')">
-                <div class="icon">📺</div>
-                <h5>অ্যাড দেখুন</h5>
-                <p>প্রতিটি অ্যাডে বোনাস</p>
-            </div>
-            <div class="task-card" onclick="alert('আপনার রেফারেল লিংক কপি হয়েছে!')">
-                <div class="icon">👥</div>
-                <h5>রেফার করুন</h5>
-                <p>বন্ধুদের যুক্ত করে আয়</p>
-            </div>
-        </div>
     </div>
 
     <script>
-        let balance = 120.50;
-        const MAX_LIMIT = 1000.00; // সাইট সুরক্ষার জন্য ১০০০ টাকার কড়া লিমিট
+        // লগইন করা ইউজারকে ভ্যালিডেট করা
+        const loggedInPhone = localStorage.getItem('logged_in_user');
+        if (!loggedInPhone) {
+            window.location.href = 'index.html';
+        }
+
+        let users = JSON.parse(localStorage.getItem('site_users')) || [];
+        let currentUser = users.find(u => u.phone === loggedInPhone);
+
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+
+        // নাম ও আইডি সেট করা
+        document.getElementById('userName').innerText = `হ্যালো, ${currentUser.name}! 👋`;
+        document.getElementById('userId').innerText = `আইডি: ${currentUser.id}`;
+
+        let balance = currentUser.balance;
+        const MAX_LIMIT = 1000.00;
 
         function updateDisplay() {
             document.getElementById('userBalance').innerHTML = `৳ ${balance.toFixed(2)}`;
+            currentUser.balance = balance;
+            localStorage.setItem('site_users', JSON.stringify(users));
         }
 
-        // গেম খেলার লজিক (জিতলে বা হারলে ব্যালেন্স কমবে/বাড়বে)
+        updateDisplay();
+
         function playGame() {
             const entryFee = 5;
             const reward = 10;
             const resultBox = document.getElementById('gameResult');
 
             if (balance < entryFee) {
-                alert('আপনার অ্যাকাউন্টে পর্যাপ্ত টাকা নেই! দয়া করে আগে কিছু টাকা ডিপোজিট করুন।');
+                alert('আপনার অ্যাকাউন্টে পর্যাপ্ত টাকা নেই! গেম খেলতে কমপক্ষে ৫ টাকা থাকতে হবে।');
                 return;
             }
 
-            balance -= entryFee; // ফি কাটা হলো
-
-            // ৫০% জেতার সম্ভাবনা, ৫০% হেরে যাওয়ার সম্ভাবনা
+            balance -= entryFee;
             let isWin = Math.random() < 0.5;
 
             if (isWin) {
                 if (balance + reward > MAX_LIMIT) {
-                    balance = MAX_LIMIT; // ১০০০ টাকার বেশি হতে দেবে না
+                    balance = MAX_LIMIT;
                     resultBox.style.color = '#10b981';
                     resultBox.innerHTML = `🎉 জিতেছেন! তবে সর্বোচ্চ ১,০০০ টাকার লিমিট পূর্ণ হয়েছে।`;
                 } else {
@@ -267,30 +115,18 @@
             updateDisplay();
         }
 
-        // ইউজার নিজে টাকা ভরার (ডিপোজিট) সিমুলেশন
-        function depositMoney() {
-            let addAmt = prompt('আপনি কত টাকা ডিপোজিট করতে চান?');
-            if(addAmt && !isNaN(addAmt)) {
-                let amount = parseFloat(addAmt);
-                if (balance + amount > MAX_LIMIT) {
-                    alert('⚠️ ১০০০ টাকার বেশি ব্যালেন্স রাখা সম্ভব নয়!');
-                } else {
-                    balance += amount;
-                    updateDisplay();
-                    alert(`সফলভাবে ৳${amount} যোগ করা হয়েছে!`);
-                }
-            }
-        }
-
-        // টাকা তোলার রিকোয়েস্ট পাঠানোর ফাংশন
         function requestWithdraw() {
             if (balance <= 0) {
                 alert('আপনার অ্যাকাউন্টে তোলার মতো কোনো ব্যালেন্স নেই!');
                 return;
             }
-            alert('টাকা তোলার রিকোয়েস্ট সফলভাবে অ্যাডমিনের কাছে পাঠানো হয়েছে! অ্যাডমিন চেক করে টাকা পাঠিয়ে দেবেন।');
+            alert('টাকা তোলার রিকোয়েস্ট সফলভাবে অ্যাডমিনের কাছে পাঠানো হয়েছে!');
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('logged_in_user');
+            window.location.href = 'index.html';
         }
     </script>
-
 </body>
 </html>
